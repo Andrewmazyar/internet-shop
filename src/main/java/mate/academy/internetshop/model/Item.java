@@ -1,17 +1,13 @@
 package mate.academy.internetshop.model;
 
 public class Item {
-    private static Long idGenerator = 0L;
-    private final Long id;
+    private Long id;
     private String name;
     private Double price;
-    private int count;
 
-    public Item(String name, Double price, int amount) {
+    public Item(String name, Double price) {
         this.name = name;
         this.price = price;
-        this.count = amount;
-        id = ++idGenerator;
     }
 
     public Double getPrice() {
@@ -30,16 +26,12 @@ public class Item {
         this.name = name;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String toString() {

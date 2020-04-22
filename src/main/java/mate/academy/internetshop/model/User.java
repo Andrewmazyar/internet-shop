@@ -1,14 +1,12 @@
 package mate.academy.internetshop.model;
 
 public class User {
-    private static Long idGenerator = 0L;
     private Long id;
     private String userName;
     private String login;
     private String password;
 
     public User(String userName,String login, String password) {
-        id = ++idGenerator;
         this.userName = userName;
         this.login = login;
         this.password = password;
