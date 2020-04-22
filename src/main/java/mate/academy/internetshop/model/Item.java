@@ -1,7 +1,5 @@
 package mate.academy.internetshop.model;
 
-import java.math.BigDecimal;
-
 public class Item {
     private static Long idGenerator = 0L;
     private final Long id;

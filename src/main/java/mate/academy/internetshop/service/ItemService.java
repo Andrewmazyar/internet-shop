@@ -1,9 +1,8 @@
 package mate.academy.internetshop.service;
 
-import mate.academy.internetshop.model.Item;
-
 import java.util.List;
 import java.util.Optional;
+import mate.academy.internetshop.model.Item;
 
 public interface ItemService {
 

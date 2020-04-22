@@ -1,7 +1,5 @@
 package mate.academy.internetshop.model;
 
-import java.util.Set;
-
 public class User {
     private static Long idGenerator = 0L;
     private Long id;
