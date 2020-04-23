@@ -49,7 +49,7 @@ public class Application {
         ShoppingCartService shoppingCartService =
                 (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
         ShoppingCart shoppingCart = new ShoppingCart(user);
-        shoppingCartService.addProduct(shoppingCart, hrechka); // test failed
+        shoppingCartService.addProduct(shoppingCart, hrechka);
         shoppingCartService.addProduct(shoppingCart, whiskey);
         shoppingCartService.getAllProducts(shoppingCart)
                 .forEach(prod -> System.out.println(prod.toString()));
