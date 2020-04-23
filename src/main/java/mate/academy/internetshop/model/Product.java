@@ -1,11 +1,11 @@
 package mate.academy.internetshop.model;
 
-public class Item {
+public class Product {
     private Long id;
     private String name;
     private Double price;
 
-    public Item(String name, Double price) {
+    public Product(String name, Double price) {
         this.name = name;
         this.price = price;
     }

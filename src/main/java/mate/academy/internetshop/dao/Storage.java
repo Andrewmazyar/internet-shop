@@ -2,33 +2,32 @@ package mate.academy.internetshop.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import mate.academy.internetshop.model.Bucket;
-import mate.academy.internetshop.model.Item;
 import mate.academy.internetshop.model.Order;
+import mate.academy.internetshop.model.Product;
+import mate.academy.internetshop.model.ShoppingCart;
 import mate.academy.internetshop.model.User;
 
 public class Storage {
+    public static final List<ShoppingCart> shoppingCarts = new ArrayList<>();
+    public static final List<Product> products = new ArrayList<>();
+    public static final List<Order> orders = new ArrayList<>();
+    public static final List<User> users = new ArrayList<>();
+
     private static Long bucketId = 0L;
     private static Long itemId = 0L;
     private static Long orderId = 0L;
     private static Long userId = 0L;
 
-    public static final List<Item> items = new ArrayList<>();
-    public static final List<Bucket> buckets = new ArrayList<>();
-    public static final List<Order> orders = new ArrayList<>();
-    public static final List<User> users = new ArrayList<>();
-
-    public static void addToList(Item item) {
+    public static void addToList(Product product) {
         itemId++;
-        item.setId(itemId);
-        items.add(item);
+        product.setId(itemId);
+        products.add(product);
     }
 
-    public static void addToList(Bucket bucket) {
+    public static void addToList(ShoppingCart shoppingCart) {
         bucketId++;
-        bucket.setId(bucketId);
-        buckets.add(bucket);
+        shoppingCart.setId(bucketId);
+        shoppingCarts.add(shoppingCart);
     }
 
     public static void addToList(User user) {

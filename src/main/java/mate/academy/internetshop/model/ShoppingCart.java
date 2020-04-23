@@ -2,10 +2,9 @@ package mate.academy.internetshop.model;
 
 import java.util.List;
 
-public class Bucket {
+public class ShoppingCart {
     private Long id;
-    private List<Item> items;
-    private Long orderId;
+    private List<Product> products;
     private User user;
 
     public Long getUser() {
@@ -16,20 +15,12 @@ public class Bucket {
         this.user = user;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public Long getId() {
