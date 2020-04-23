@@ -7,6 +7,11 @@ public class Order {
     private List<Product> products;
     private Long orderId;
 
+    public Order(List<Product> products, User user) {
+        this.products = products;
+        this.user = user;
+    }
+
     public User getUser() {
         return user;
     }
