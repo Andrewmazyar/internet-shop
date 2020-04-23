@@ -35,4 +35,10 @@ public class Order {
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
+
+    public String toString() {
+        return "Order{ id: " + orderId
+                + ", user" + user.getUserName()
+                + ", product" + products;
+    }
 }

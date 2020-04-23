@@ -1,50 +1,53 @@
 package mate.academy.internetshop.dao.impl;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.IntStream;
 import mate.academy.internetshop.dao.ShoppingCartDao;
 import mate.academy.internetshop.dao.Storage;
 import mate.academy.internetshop.lib.Dao;
-import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.model.ShoppingCart;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Dao
 public class ShoppingDaoImpl implements ShoppingCartDao {
+
     @Override
-    public ShoppingCart addProduct(ShoppingCart shoppingCart, Product product) {
-        Storage.shoppingCarts
-                .stream()
-                .filter(s -> s.getId().equals(shoppingCart.getId()))
-                .forEach(s -> s.getProducts().add(product));
+    public ShoppingCart create(ShoppingCart shoppingCart) {
+        Storage.addToShoppingCart(shoppingCart);
         return shoppingCart;
     }
 
     @Override
-    public boolean deleteProduct(ShoppingCart shoppingCart, Product product) {
-        return Storage.shoppingCarts
-                .removeIf(s -> s.getId().equals(product.getId()));
-    }
-
-    @Override
-    public void clear(ShoppingCart shoppingCart) {
-        Storage.shoppingCarts.clear();
-    }
-
-    @Override
-    public Optional<ShoppingCart> getByUserId(Long userId) {
+    public Optional<ShoppingCart> get(Long id) {
         return Storage.shoppingCarts
                 .stream()
-                .filter(s -> s.getUser().getId().equals(userId))
+                .filter(s -> s.getId().equals(id))
                 .findFirst();
     }
 
     @Override
-    public List<Product> getAllProducts(ShoppingCart shoppingCart) {
+    public Optional<ShoppingCart> getByUser(Long id) {
         return Storage.shoppingCarts
                 .stream()
-                .filter(s -> s.getId().equals(shoppingCart.getId()))
-                .flatMap(c -> c.getProducts().stream())
-                .collect(Collectors.toList());
+                .filter(shop -> shop.getUser().getId().equals(id))
+                .findFirst();
+    }
+
+    @Override
+    public List<ShoppingCart> getAll() {
+        return Storage.shoppingCarts;
+    }
+
+    @Override
+    public ShoppingCart update(ShoppingCart shoppingCart) {
+        IntStream.range(0, Storage.shoppingCarts.size())
+                .filter(s -> shoppingCart.getId().equals(Storage.shoppingCarts.get(s).getId()))
+                .forEach(s -> Storage.shoppingCarts.set(s, shoppingCart));
+        return shoppingCart;
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        return Storage.shoppingCarts.removeIf(shoppingCart -> shoppingCart.getId().equals(id));
     }
 }

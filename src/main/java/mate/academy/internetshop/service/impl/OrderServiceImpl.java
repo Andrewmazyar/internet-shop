@@ -17,12 +17,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order completeOrder(List<Product> products, User user) {
-        return orderDao.completeOrder(products,user);
+        return orderDao.create(new Order(products, user));
     }
 
     @Override
     public List<Order> getUserOrders(User user) {
-        return orderDao.getUserOrders(user);
+        return orderDao.getByUser(user.getId());
     }
 
     @Override
@@ -40,3 +40,4 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.delete(id);
     }
 }
+

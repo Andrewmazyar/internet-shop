@@ -44,4 +44,11 @@ public class User {
         this.password = password;
     }
 
+    public String toString() {
+        return "User{name:" + userName
+                + ", login: " + login
+                + ", password: " + password
+                + "}";
+    }
+
 }

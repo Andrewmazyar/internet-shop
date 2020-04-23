@@ -1,30 +1,21 @@
 package mate.academy.internetshop.dao.impl;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import mate.academy.internetshop.dao.OrderDao;
 import mate.academy.internetshop.dao.Storage;
 import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.Order;
-import mate.academy.internetshop.model.Product;
-import mate.academy.internetshop.model.User;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Dao
 public class OrderDaoImpl implements OrderDao {
-    @Override
-    public Order completeOrder(List<Product> products, User user) {
-        Order order = new Order(products, user);
-        Storage.addToOrder(order);
-        return null;
-    }
 
     @Override
-    public List<Order> getUserOrders(User user) {
-        return Storage.orders
-                .stream()
-                .filter(order -> order.getUser().getId().equals(user.getId()))
-                .collect(Collectors.toList());
+    public Order create(Order order) {
+        Storage.addToOrder(order);
+        return order;
     }
 
     @Override
@@ -36,8 +27,24 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public List<Order> getByUser(Long id) {
+        return Storage.orders
+                .stream()
+                .filter(o -> o.getUser().getId().equals(id))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<Order> getAll() {
         return Storage.orders;
+    }
+
+    @Override
+    public Order update(Order order) {
+        IntStream.range(0, Storage.orders.size())
+                .filter(ord -> Storage.orders.get(ord).getOrderId().equals(order.getOrderId()))
+                .forEach(o -> Storage.orders.set(o, order));
+        return order;
     }
 
     @Override

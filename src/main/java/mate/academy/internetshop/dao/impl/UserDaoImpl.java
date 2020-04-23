@@ -1,12 +1,12 @@
 package mate.academy.internetshop.dao.impl;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.IntStream;
 import mate.academy.internetshop.dao.Storage;
 import mate.academy.internetshop.dao.UserDao;
 import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.User;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.IntStream;
 
 @Dao
 public class UserDaoImpl implements UserDao {
@@ -33,7 +33,7 @@ public class UserDaoImpl implements UserDao {
         IntStream.range(0, Storage.users.size())
                 .filter(u -> user.getId().equals(Storage.users.get(u).getId()))
                 .forEach(i -> Storage.users.set(i, user));
-        return null;
+        return user;
     }
 
     @Override
