@@ -18,25 +18,26 @@ public class Storage {
     private static Long orderId = 0L;
     private static Long userId = 0L;
 
-    public static void addToList(Product product) {
+    public static void addToProduct(Product product) {
         itemId++;
         product.setId(itemId);
         products.add(product);
     }
 
-    public static void addToList(ShoppingCart shoppingCart) {
+    public static void addToShoppingCart(ShoppingCart shoppingCart) {
         bucketId++;
         shoppingCart.setId(bucketId);
         shoppingCarts.add(shoppingCart);
     }
 
-    public static void addToList(User user) {
+    public static User addToUser(User user) {
         userId++;
         user.setId(userId);
         users.add(user);
+        return user;
     }
 
-    public static void addToList(Order order) {
+    public static void addToOrder(Order order) {
         orderId++;
         order.setOrderId(orderId);
         orders.add(order);

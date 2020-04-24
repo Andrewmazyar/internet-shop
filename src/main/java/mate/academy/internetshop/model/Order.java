@@ -7,6 +7,11 @@ public class Order {
     private List<Product> products;
     private Long orderId;
 
+    public Order(List<Product> products, User user) {
+        this.products = products;
+        this.user = user;
+    }
+
     public User getUser() {
         return user;
     }
@@ -29,5 +34,11 @@ public class Order {
 
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
+    }
+
+    public String toString() {
+        return "Order{ id: " + orderId
+                + ", user" + user.getUserName()
+                + ", product" + products;
     }
 }
