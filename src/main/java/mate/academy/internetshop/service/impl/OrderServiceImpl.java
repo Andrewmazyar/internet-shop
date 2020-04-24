@@ -22,10 +22,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order completeOrder(List<Product> products, User user) {
         shoppingCartService.clear(shoppingCartService.getByUserId(user.getId()));
-        if (products.isEmpty()) {
-            throw new IllegalArgumentException("order is empty");
+        if (orderDao.getByUser(user.getId()).isEmpty()) {
+            return orderDao.create(new Order(products, user));
         }
-        return orderDao.create(new Order(products, user));
+        return null;
     }
 
     @Override
