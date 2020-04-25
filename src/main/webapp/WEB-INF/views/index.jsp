@@ -13,4 +13,7 @@
 <body>
 <h1>Hello World!!!</h1>
 </body>
+<footer>
+    <p>Hello!!! Do you want to dance)))) <a href="https://www.youtube.com/watch?v=fVGCLEAqUtA">click dance</a> ?</p>
+</footer>
 </html>
