@@ -1,12 +1,11 @@
 package mate.academy.internetshop.service;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface GenericService<E, K> {
     E create(E element);
 
-    Optional<E> get(K element);
+    E get(K element);
 
     List<E> getAll();
 

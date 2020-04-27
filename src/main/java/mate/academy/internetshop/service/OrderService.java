@@ -11,7 +11,7 @@ public interface OrderService extends GenericService<Order, Long> {
 
     List<Order> getUserOrders(User user);
 
-    Optional<Order> get(Long id);
+    Order get(Long id);
 
     List<Order> getAll();
 

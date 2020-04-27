@@ -11,6 +11,8 @@ public interface ShoppingCartService extends GenericService<ShoppingCart, Long> 
 
     void clear(ShoppingCart shoppingCart);
 
+    ShoppingCart get(Long id);
+
     ShoppingCart getByUserId(Long userId);
 
     List<Product> getAllProducts(ShoppingCart shoppingCart);
