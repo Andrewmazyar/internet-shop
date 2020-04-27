@@ -73,7 +73,7 @@
         <servlet-name>addProductToCart</servlet-name>
         <url-pattern>/shoppingCartAdd</url-pattern>
     </servlet-mapping>
-    /usr/lib/jvm/java-11-oracle
+
     <servlet>
         <servlet-name>shoppingCart</servlet-name>
         <servlet-class>mate.academy.internetshop.controller.ShoppingCartController</servlet-class>
