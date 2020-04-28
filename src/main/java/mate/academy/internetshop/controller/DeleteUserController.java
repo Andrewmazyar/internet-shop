@@ -9,8 +9,8 @@ import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.service.UserService;
 
 public class DeleteUserController extends HttpServlet {
-    private static Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
-    private final UserService userService = (UserService) INJECTOR.getInstance(UserService.class);
+    private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
+    private UserService userService = (UserService) INJECTOR.getInstance(UserService.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
