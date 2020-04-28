@@ -1,13 +1,13 @@
 package mate.academy.internetshop.controller;
 
-import mate.academy.internetshop.lib.Injector;
-import mate.academy.internetshop.model.Product;
-import mate.academy.internetshop.service.ProductService;
+import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import mate.academy.internetshop.lib.Injector;
+import mate.academy.internetshop.model.Product;
+import mate.academy.internetshop.service.ProductService;
 
 public class AddProductController extends HttpServlet {
     private static Injector injector = Injector.getInstance("mate.academy.internetshop");
@@ -16,7 +16,8 @@ public class AddProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/views/products/addProduct.jsp").forward(request,response);
+        request.getRequestDispatcher("/WEB-INF/views/products/addProduct.jsp")
+                .forward(request,response);
     }
 
     @Override
