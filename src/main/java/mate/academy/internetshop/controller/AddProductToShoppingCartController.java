@@ -22,7 +22,7 @@ public class AddProductToShoppingCartController extends HttpServlet {
         String userId = request.getParameter("user_id");
         String productId = request.getParameter("product_id");
         ShoppingCart shoppingCart = shoppingCartService.getByUserId(Long.valueOf(userId));
-        shoppingCartService.addProduct(shoppingCart, productService.get(Long.valueOf(productId)));
+        shoppingCartService.addProduct(shoppingCart, productService.get(Long.parseLong(productId)));
         response.sendRedirect(request.getContextPath() + "/products/listProduct");
     }
 }
