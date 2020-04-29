@@ -26,6 +26,8 @@ public class MakeOrderController extends HttpServlet {
         Order order = orderService.completeOrder(shoppingCart.getProducts(),
                 shoppingCart.getUser());
 
+        shoppingCartService.clear(shoppingCartService.getByUserId(USER_ID));
+
         response.sendRedirect(request.getContextPath() + "/order?id=" + order.getOrderId());
     }
 }

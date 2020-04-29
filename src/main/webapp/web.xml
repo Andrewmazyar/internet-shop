@@ -103,4 +103,34 @@
         <servlet-name>addToOrder</servlet-name>
         <url-pattern>/order/complete</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>getAllOrder</servlet-name>
+        <servlet-class>mate.academy.internetshop.controller.GetAllOrdersController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>getAllOrder</servlet-name>
+        <url-pattern>/order/orderAll</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deleteOrder</servlet-name>
+        <servlet-class>mate.academy.internetshop.controller.DeleteOrderControler</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deleteOrder</servlet-name>
+        <url-pattern>/deleteOrder</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>detailOrder</servlet-name>
+        <servlet-class>mate.academy.internetshop.controller.GetOrderController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>detailOrder</servlet-name>
+        <url-pattern>/order/details</url-pattern>
+    </servlet-mapping>
 </web-app>
