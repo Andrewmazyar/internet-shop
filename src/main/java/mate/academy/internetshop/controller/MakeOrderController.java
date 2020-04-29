@@ -21,9 +21,10 @@ public class MakeOrderController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException{
+            throws ServletException, IOException {
         ShoppingCart shoppingCart = shoppingCartService.getByUserId(USER_ID);
-        Order order = orderService.completeOrder(shoppingCart.getProducts(), shoppingCart.getUser());
+        Order order = orderService.completeOrder(shoppingCart.getProducts(),
+                shoppingCart.getUser());
 
         response.sendRedirect(request.getContextPath() + "/order?id=" + order.getOrderId());
     }
