@@ -25,6 +25,9 @@
         <td>
             <c:out value="${product.price}"/>
         </td>
+        <td>
+            <a href="${pageContext.request.contextPath}/deleteProduct?product_id=${product.id}">DELETE</a>
+        </td>
     </tr>
     </c:forEach>
 </body>

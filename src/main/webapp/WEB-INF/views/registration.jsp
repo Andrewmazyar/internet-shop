@@ -11,7 +11,7 @@
 <form method="post" action="${pageContext.request.contextPath}/registration">
     Please provide your name<input type="text" name="name"><br>
     Please provide your login<input type="text" name="login"><br>
-    Please provide your password<input type="password" name="pwd"><br>
+    Please provide your passwordinput<input type="password" name="pwd"><br>
     Please repeat your password<input type="password" name="pwd-control"><br>
     <button type="submit">Register</button>
 </form>
