@@ -24,5 +24,4 @@ public class GetAllProductController extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/views/products/listProduct.jsp")
                 .forward(request, response);
     }
-
 }

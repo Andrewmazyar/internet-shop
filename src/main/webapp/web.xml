@@ -133,4 +133,24 @@
         <servlet-name>detailOrder</servlet-name>
         <url-pattern>/order/details</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>listAdmin</servlet-name>
+        <servlet-class>mate.academy.internetshop.controller.GetAllProductsForAdminController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>listAdmin</servlet-name>
+        <url-pattern>/products/listProductAdmin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deeteProduct</servlet-name>
+        <servlet-class>mate.academy.internetshop.controller.DeleteProductByAdminController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deeteProduct</servlet-name>
+        <url-pattern>/deletePrroduct</url-pattern>
+    </servlet-mapping>
 </web-app>
