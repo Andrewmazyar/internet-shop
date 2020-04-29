@@ -30,5 +30,6 @@
         </td>
     </tr>
     </c:forEach>
+    <a href="${pageContext.request.contextPath}/order/complete" class="btn btn-primary">to order</a>
 </body>
 </html>

@@ -93,4 +93,14 @@
         <servlet-name>deleteProductShoppingCart</servlet-name>
         <url-pattern>/deleteProduct</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addToOrder</servlet-name>
+        <servlet-class>mate.academy.internetshop.controller.MakeOrderController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addToOrder</servlet-name>
+        <url-pattern>/order/complete</url-pattern>
+    </servlet-mapping>
 </web-app>
