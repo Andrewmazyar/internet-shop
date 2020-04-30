@@ -11,7 +11,7 @@ import mate.academy.internetshop.model.ShoppingCart;
 import mate.academy.internetshop.service.OrderService;
 import mate.academy.internetshop.service.ShoppingCartService;
 
-public class MakeOrderController extends HttpServlet {
+public class CompleteOrderController extends HttpServlet {
     private static final Long USER_ID = 1L;
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
     private ShoppingCartService shoppingCartService
