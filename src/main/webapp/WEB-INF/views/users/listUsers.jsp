@@ -24,6 +24,7 @@
             </td>
         </tr>
     </c:forEach>
+    <li><a href="/">main page</a></li>
 </table>
 </body>
 </html>

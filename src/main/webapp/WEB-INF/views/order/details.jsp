@@ -26,5 +26,6 @@
     </tr>
     </c:forEach>
     <a href="${pageContext.request.contextPath}/deleteOrder?order_id=${order.id}">DELETE</a>
+    <li><a href="/">main page</a></li>
 </body>
 </html>
