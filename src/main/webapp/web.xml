@@ -83,4 +83,74 @@
         <servlet-name>shoppingCart</servlet-name>
         <url-pattern>/shoppingCart/shoppingCart</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deleteProductShoppingCart</servlet-name>
+        <servlet-class>mate.academy.internetshop.controller.DeleteProductFromShopCartByUserController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deleteProductShoppingCart</servlet-name>
+        <url-pattern>/deleteProduct</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addToOrder</servlet-name>
+        <servlet-class>mate.academy.internetshop.controller.CompleteOrderController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addToOrder</servlet-name>
+        <url-pattern>/order/complete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>getAllOrder</servlet-name>
+        <servlet-class>mate.academy.internetshop.controller.GetAllOrdersController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>getAllOrder</servlet-name>
+        <url-pattern>/order/orderAll</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deleteOrder</servlet-name>
+        <servlet-class>mate.academy.internetshop.controller.DeleteOrderControler</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deleteOrder</servlet-name>
+        <url-pattern>/deleteOrder</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>detailOrder</servlet-name>
+        <servlet-class>mate.academy.internetshop.controller.GetOrderController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>detailOrder</servlet-name>
+        <url-pattern>/order/details</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>listAdmin</servlet-name>
+        <servlet-class>mate.academy.internetshop.controller.GetAllProductsForAdminController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>listAdmin</servlet-name>
+        <url-pattern>/products/listProductAdmin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deeteProduct</servlet-name>
+        <servlet-class>mate.academy.internetshop.controller.DeleteProductByAdminController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deeteProduct</servlet-name>
+        <url-pattern>/deletePrroduct</url-pattern>
+    </servlet-mapping>
 </web-app>

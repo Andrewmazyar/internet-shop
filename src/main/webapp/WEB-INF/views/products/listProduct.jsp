@@ -28,6 +28,5 @@
         </td>
     </tr>
     </c:forEach>
-    <a href="/products/addProduct">add Product</a>
 </body>
 </html>
