@@ -126,7 +126,7 @@
 
     <servlet>
         <servlet-name>detailOrder</servlet-name>
-        <servlet-class>mate.academy.internetshop.controller.GetOrderController</servlet-class>
+        <servlet-class>mate.academy.internetshop.controller.ShowProductForOrderController</servlet-class>
     </servlet>
 
     <servlet-mapping>

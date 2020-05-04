@@ -1,17 +1,17 @@
 package mate.academy.internetshop.controller;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import mate.academy.internetshop.lib.Injector;
+import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.service.OrderService;
 import mate.academy.internetshop.service.UserService;
 
-public class GetOrderController extends HttpServlet {
-    private static final String USER_ID = "user_id";
+public class ShowProductForOrderController extends HttpServlet {
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
     private OrderService orderService
             = (OrderService) INJECTOR.getInstance(OrderService.class);
@@ -20,10 +20,8 @@ public class GetOrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Long userId = (Long) session.getAttribute(USER_ID);
-        request.setAttribute("order", orderService
-                .getUserOrders(userService.get(userId)));
+        Order order = orderService.get(Long.valueOf(request.getParameter("orderId")));
+        request.setAttribute("order", order.getProducts());
         request.getRequestDispatcher("WEB-INF/views/order/details.jsp")
                 .forward(request, response);
     }
