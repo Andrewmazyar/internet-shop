@@ -8,7 +8,7 @@
 
 <h4>Order</h4>
 <ul>
-    <li><a href="/order/orderall">all orders</a></li>
+    <li><a href="/order/orderAll">all orders</a></li>
     <li><a href="/order/details">detail for order</a></li>
 </ul>
 <h4>Product</h4>
