@@ -76,7 +76,7 @@
 
     <servlet>
         <servlet-name>shoppingCart</servlet-name>
-        <servlet-class>mate.academy.internetshop.controller.GetAllShoppingCartByUserController</servlet-class>
+        <servlet-class>mate.academy.internetshop.controller.GetAllProductsInShoppingCartByUserController</servlet-class>
     </servlet>
 
     <servlet-mapping>

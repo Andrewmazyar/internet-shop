@@ -23,11 +23,11 @@ public class CompleteOrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ShoppingCart shoppingCart = shoppingCartService.getByUserId(Long.valueOf(USER_ID));
-        Order order = orderService.completeOrder(shoppingCart.getProducts(),
-                shoppingCart.getUser());
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute(USER_ID);
+        ShoppingCart shoppingCart = shoppingCartService.getByUserId(userId);
+        Order order = orderService.completeOrder(shoppingCart.getProducts(),
+                shoppingCart.getUser());
         shoppingCartService.clear(shoppingCartService.getByUserId(userId));
 
         response.sendRedirect(request.getContextPath() + "/order?id=" + order.getOrderId());

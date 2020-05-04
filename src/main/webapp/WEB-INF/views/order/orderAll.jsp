@@ -17,19 +17,19 @@
     <c:forEach var="order" items="${orders}">
     <tr>
         <td>
-            <c:out value="${order.id}"/>
+            <c:out value="${order.orderId}"/>
         </td>
         <td>
             <c:out value="${order.user.id}"/>
         </td>
         <td>
-            <c:out value="${order.user.name}"/>
+            <c:out value="${order.user.userName}"/>
         </td>
         <td>
-            <a href="${pageContext.request.contextPath}/order/details?orderId=${order.id}">show</a>
+            <a href="${pageContext.request.contextPath}/order/details?orderId=${order.orderId}">show</a>
         </td>
         <td>
-            <a href="${pageContext.request.contextPath}/deleteOrder?order_id=${order.id}">DELETE</a>
+            <a href="${pageContext.request.contextPath}/deleteOrder?order_id=${order.orderId}">DELETE</a>
         </td>
     </tr>
     </c:forEach>
