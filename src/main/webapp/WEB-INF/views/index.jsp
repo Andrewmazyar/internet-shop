@@ -5,6 +5,7 @@
 </head>
 <body>
 <h1>Bear Beer Shop</h1>
+
 <h4>Order</h4>
 <ul>
     <li><a href="/order/orderall">all orders</a></li>
@@ -19,13 +20,12 @@
 <h4>shopping cart</h4>
 <ul>
     <li><a href="/shoppingCart/shoppingCart">Shopping Cart</a></li>
-    <h4>User</h4>
 </ul>
+<h4>User</h4>
 <ul>
     <li><a href="/registration">Registration</a></li>
     <li><a href="/users/listUsers">List Of Users</a></li>
-    <li><a href="/products/addProduct">Add Product</a></li>
-    <li><a href="/products/listProduct">Registration</a></li>
+    <li><a href="/login">login</a></li>
 </ul>
 </body>
 <footer>

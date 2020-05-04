@@ -33,5 +33,6 @@
         </td>
     </tr>
     </c:forEach>
+    <li><a href="/">main page</a></li>
 </body>
 </html>

@@ -30,5 +30,6 @@
     </tr>
     </c:forEach>
     <a href="/products/addProduct">add Product</a>
+    <li><a href="/">main page</a></li>
 </body>
 </html>

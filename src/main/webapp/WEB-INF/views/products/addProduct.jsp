@@ -11,5 +11,6 @@
     Please enter price of product<input type="text" name="price"><br>
     <button type="submit">add product</button>
 </form>
+<li><a href="/">main page</a></li>
 </body>
 </html>
