@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.model.ShoppingCart;
@@ -12,7 +13,7 @@ import mate.academy.internetshop.service.OrderService;
 import mate.academy.internetshop.service.ShoppingCartService;
 
 public class CompleteOrderController extends HttpServlet {
-    private static final Long USER_ID = 1L;
+    private static final String USER_ID = "user_id";
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
     private ShoppingCartService shoppingCartService
             = (ShoppingCartService) INJECTOR.getInstance(ShoppingCartService.class);
@@ -22,11 +23,12 @@ public class CompleteOrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ShoppingCart shoppingCart = shoppingCartService.getByUserId(USER_ID);
+        ShoppingCart shoppingCart = shoppingCartService.getByUserId(Long.valueOf(USER_ID));
         Order order = orderService.completeOrder(shoppingCart.getProducts(),
                 shoppingCart.getUser());
-
-        shoppingCartService.clear(shoppingCartService.getByUserId(USER_ID));
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute(USER_ID);
+        shoppingCartService.clear(shoppingCartService.getByUserId(userId));
 
         response.sendRedirect(request.getContextPath() + "/order?id=" + order.getOrderId());
     }
