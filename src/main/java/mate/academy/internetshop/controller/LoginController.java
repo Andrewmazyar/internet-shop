@@ -11,7 +11,7 @@ import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.security.AuthenticationService;
 
-public class LogginController extends HttpServlet {
+public class LoginController extends HttpServlet {
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
     private AuthenticationService authenticationService
             = (AuthenticationService) INJECTOR.getInstance(AuthenticationService.class);
@@ -39,7 +39,5 @@ public class LogginController extends HttpServlet {
             return;
         }
         response.sendRedirect(request.getContextPath() + "/");
-
-        request.getParameter("");
     }
 }

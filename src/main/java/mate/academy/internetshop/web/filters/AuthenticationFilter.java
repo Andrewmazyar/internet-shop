@@ -27,19 +27,16 @@ public class AuthenticationFilter implements Filter {
                          FilterChain filterChain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) resp;
         HttpServletRequest request = (HttpServletRequest) req;
-
         String url = request.getServletPath();
         if (url.equals("/login") || url.equals("/registration") || url.equals("/")) {
             filterChain.doFilter(request, response);
             return;
         }
-
         Long userId = (Long) request.getSession().getAttribute(USER_ID);
         if (userId == null || userService.get(userId) == null) {
             response.sendRedirect("/login");
             return;
         }
-
         filterChain.doFilter(request, response);
     }
 

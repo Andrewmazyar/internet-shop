@@ -155,7 +155,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>loging</servlet-name>
-        <servlet-class>mate.academy.internetshop.controller.LogginController</servlet-class>
+        <servlet-class>mate.academy.internetshop.controller.LoginController</servlet-class>
     </servlet>
 
     <servlet-mapping>
