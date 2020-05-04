@@ -1,7 +1,6 @@
 package mate.academy.internetshop.controller;
 
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +20,7 @@ public class ShowProductForOrderController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Order order = orderService.get(Long.valueOf(request.getParameter("orderId")));
-        request.setAttribute("order", order.getProducts());
+        request.setAttribute("order", order);
         request.getRequestDispatcher("WEB-INF/views/order/details.jsp")
                 .forward(request, response);
     }
