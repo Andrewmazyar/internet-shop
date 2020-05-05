@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-    <title>Order Detail</title>
+    <title>Order Detail ${order.orderId}:</title>
 </head>
 <body>
 <h2>Orders detail</h2>

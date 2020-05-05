@@ -55,11 +55,9 @@ public class AuthorizationFilter implements Filter {
         User user = userService.get(userId);
         if (isAuthorized(user, protectedUrls.get(requestUrl))) {
             filterChain.doFilter(request, response);
-            return;
         } else {
             request.getRequestDispatcher("/WEB-INF/views/accessDenied.jsp")
                     .forward(request, response);
-            return;
         }
 
     }
