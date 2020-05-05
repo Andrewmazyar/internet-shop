@@ -26,7 +26,7 @@
             <c:out value="${order.user.userName}"/>
         </td>
         <td>
-            <a href="${pageContext.request.contextPath}/order/details?orderId=${order.orderId}">show</a>
+            <a href="${pageContext.request.contextPath}/order/details?id=${order.orderId}">show</a>
         </td>
         <td>
             <a href="${pageContext.request.contextPath}/deleteOrder?order_id=${order.orderId}">DELETE</a>
