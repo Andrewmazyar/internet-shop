@@ -1,10 +1,13 @@
 package mate.academy.internetshop.model;
 
+import java.util.Set;
+
 public class User {
     private Long id;
     private String userName;
     private String login;
     private String password;
+    private Set<Role> roles;
 
     public User(String userName,String login, String password) {
         this.userName = userName;
@@ -51,4 +54,11 @@ public class User {
                 + "}";
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }
