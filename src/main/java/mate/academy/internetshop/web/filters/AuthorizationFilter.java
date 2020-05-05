@@ -57,7 +57,7 @@ public class AuthorizationFilter implements Filter {
             filterChain.doFilter(request, response);
             return;
         } else {
-            request.getRequestDispatcher("WEB-INF/views/accessDenied.jsp")
+            request.getRequestDispatcher("/WEB-INF/views/accessDenied.jsp")
                     .forward(request, response);
             return;
         }
