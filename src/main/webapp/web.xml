@@ -126,6 +126,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>allOrdersAdmin</servlet-name>
+        <servlet-class>mate.academy.internetshop.controller.GetAllOrdersForAdminController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>allOrdersAdmin</servlet-name>
+        <url-pattern>/order/allOrders</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>deleteOrder</servlet-name>
         <servlet-class>mate.academy.internetshop.controller.DeleteOrderControler</servlet-class>
     </servlet>
