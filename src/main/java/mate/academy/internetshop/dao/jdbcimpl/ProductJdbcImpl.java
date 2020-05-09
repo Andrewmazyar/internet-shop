@@ -18,7 +18,7 @@ public class ProductJdbcImpl implements ProductDao {
 
     @Override
     public Product create(Product element) {
-        String sql = "INSERT INTO internet-shop.product(name, price) VALUES (?, ?)";
+        String sql = "INSERT INTO internet-shop.product(name, price) VALUES (?, ?);";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, element.getName());
@@ -31,7 +31,7 @@ public class ProductJdbcImpl implements ProductDao {
 
     @Override
     public Optional<Product> get(Long element) {
-        String sql = "SELECT * FROM internet-shop.product WHERE product_id=" + element;
+        String sql = "SELECT * FROM internet-shop.product WHERE product_id=" + element + ";";
         try (Connection connection = ConnectionUtil.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
@@ -52,7 +52,7 @@ public class ProductJdbcImpl implements ProductDao {
     @Override
     public List<Product> getAll() {
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT * FROM internet-shop.product";
+        String sql = "SELECT * FROM internet-shop.product;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
@@ -74,7 +74,7 @@ public class ProductJdbcImpl implements ProductDao {
     @Override
     public Product update(Product element) {
         String sql = "UPDATE internet-shop.product SET name=?, price=? WHERE product_id="
-                + element.getId();
+                + element.getId() + ";";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, element.getName());
@@ -87,11 +87,11 @@ public class ProductJdbcImpl implements ProductDao {
 
     @Override
     public boolean delete(Long element) {
-        String sql = "DELETE FROM internet-shop.product WHERE product_id=" + element;
+        String sql = "DELETE FROM internet-shop.product WHERE product_id=" + element + ";";
         try (Connection connection = ConnectionUtil.getConnection()) {
             Statement statement = connection.createStatement();
             return statement.executeUpdate(sql) > 0;
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException("", e);
         }
     }
