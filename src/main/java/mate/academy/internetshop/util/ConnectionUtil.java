@@ -23,7 +23,7 @@ public class ConnectionUtil {
         try {
             return DriverManager.getConnection(url, dbProperties);
         } catch (SQLException e) {
-            throw new RuntimeException("Can`t  established to connection to db", e);
+            throw new RuntimeException("Can`t  established to connection to database", e);
         }
     }
 }
