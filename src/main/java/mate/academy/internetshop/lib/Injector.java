@@ -66,6 +66,7 @@ public class Injector {
                 if (singleInterface.equals(certainInterface)
                         && (clazz.isAnnotationPresent(Service.class)
                         || clazz.isAnnotationPresent(Dao.class))) {
+                    return clazz;
                 }
             }
         }
