@@ -40,15 +40,11 @@ public class ProductJdbcImpl implements ProductDao {
     public Optional<Product> get(Long element) {
         String sql = String.format("SELECT * FROM product WHERE product_id=%d;", element);
         try (Connection connection = ConnectionUtil.getConnection()) {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
             Product product = null;
             while (resultSet.next()) {
-                Long productId = resultSet.getLong("product_id");
-                String name = resultSet.getString("name");
-                Double price = resultSet.getDouble("price");
-                product = new Product(name, price);
-                product.setId(productId);
+                product = getProductResultSet(resultSet);
             }
             return Optional.ofNullable(product);
         } catch (SQLException e) {
@@ -61,15 +57,11 @@ public class ProductJdbcImpl implements ProductDao {
         List<Product> products = new ArrayList<>();
         String sql = "SELECT * FROM product;";
         try (Connection connection = ConnectionUtil.getConnection()) {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
             Product product;
             while (resultSet.next()) {
-                Long productId = resultSet.getLong("product_id");
-                String name = resultSet.getString("name");
-                Double price = resultSet.getDouble("price");
-                product = new Product(name, price);
-                product.setId(productId);
+                product = getProductResultSet(resultSet);
                 products.add(product);
             }
             return products;
@@ -101,5 +93,14 @@ public class ProductJdbcImpl implements ProductDao {
         } catch (SQLException e) {
             throw new DataProcessingException("Can`t delete product from DB", e);
         }
+    }
+
+    private Product getProductResultSet(ResultSet resultSet) throws SQLException {
+        Long productId = resultSet.getLong("product_id");
+        String name = resultSet.getString("name");
+        Double price = resultSet.getDouble("price");
+        Product product = new Product(name, price);
+        product.setId(productId);
+        return product;
     }
 }
