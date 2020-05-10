@@ -1,11 +1,10 @@
 package mate.academy.internetshop.util;
 
-import mate.academy.internetshop.exception.DataProcessingException;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import mate.academy.internetshop.exception.DataProcessingException;
 
 public class ConnectionUtil {
     static {
