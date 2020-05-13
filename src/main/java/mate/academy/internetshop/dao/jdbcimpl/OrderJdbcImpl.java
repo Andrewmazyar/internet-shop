@@ -45,6 +45,7 @@ public class OrderJdbcImpl implements OrderDao {
             if (resultSet.next()) {
                 element.setOrderId(resultSet.getLong(1));
             }
+            addProductToOrder(element);
             return element;
         } catch (SQLException e) {
             throw new DataProcessingException("Can`t add product to DB", e);
@@ -57,11 +58,10 @@ public class OrderJdbcImpl implements OrderDao {
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
-            Order order = null;
-            while (resultSet.next()) {
-                order = getOrderFromResultSet(resultSet);
+            if (resultSet.next()) {
+                return Optional.of(getOrderFromResultSet(resultSet));
             }
-            return Optional.ofNullable(order);
+            return Optional.empty();
         } catch (SQLException e) {
             throw new DataProcessingException("can`t receive orders from DB by user id ", e);
         }
@@ -139,11 +139,12 @@ public class OrderJdbcImpl implements OrderDao {
 
     private List<Product> getProductFromOrder(Long id) {
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT p.product_id, p.name, p.price FROM orders_product as op "
-                + "RIGHT JOIN product as p on op.product_id = p.product_id "
-                + "WHERE op.order_id = " + id + ";";
+        String sql = "SELECT product.product_id, product.name, product.price FROM orders_product "
+                + "INNER JOIN product on orders_product.product_id = product.product_id "
+                + "WHERE orders_product.order_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             Product product;
             while (resultSet.next()) {

@@ -6,11 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import mate.academy.internetshop.dao.UserDao;
 import mate.academy.internetshop.exception.DataProcessingException;
 import mate.academy.internetshop.lib.Dao;
+import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.util.ConnectionUtil;
 
@@ -18,15 +21,18 @@ import mate.academy.internetshop.util.ConnectionUtil;
 public class UserJdbcImpl implements UserDao {
     @Override
     public Optional<User> findByLogin(String login) {
-        String sql = String.format("SELECT * FROM users WHERE login=%s;", login);
+        String sql = "SELECT * FROM users WHERE login=?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, login);
             ResultSet resultSet = statement.executeQuery();
             User user = null;
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 user = getUserFromResultSet(resultSet);
+                user.setRoles(getRolesForUser(user.getId()));
+                return Optional.of(user);
             }
-            return Optional.ofNullable(user);
+            return Optional.empty();
         } catch (SQLException e) {
             throw new DataProcessingException("can`t receive user from DB by login ", e);
         }
@@ -65,6 +71,7 @@ public class UserJdbcImpl implements UserDao {
             User user = null;
             while (resultSet.next()) {
                 user = getUserFromResultSet(resultSet);
+                user.setRoles(getRolesForUser(user.getId()));
             }
             return Optional.ofNullable(user);
         } catch (SQLException e) {
@@ -75,18 +82,19 @@ public class UserJdbcImpl implements UserDao {
     @Override
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
-        String sql = String.format("SELECT * FROM users;");
+        String sql = "SELECT * FROM internet-shop.users;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             User user;
             while (resultSet.next()) {
                 user = getUserFromResultSet(resultSet);
+                user.setRoles(getRolesForUser(user.getId()));
                 users.add(user);
             }
             return users;
         } catch (SQLException e) {
-            throw new DataProcessingException("can`t receive user from DB by login ", e);
+            throw new DataProcessingException("can`t receive all user from DB ", e);
         }
     }
 
@@ -124,5 +132,21 @@ public class UserJdbcImpl implements UserDao {
         User user = new User(name, login1, password);
         user.setId(userId);
         return user;
+    }
+
+    private Set<Role> getRolesForUser(Long userId) throws SQLException {
+        String url = "SELECT role_name FROM user_roles "
+                + "JOIN roles USING (role_id)"
+                + "WHERE user_id = ?;";
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(url);
+            statement.setLong(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            Set<Role> roles = new HashSet<>();
+            while (resultSet.next()) {
+                roles.add(Role.of(resultSet.getString("role_name")));
+            }
+            return roles;
+        }
     }
 }
