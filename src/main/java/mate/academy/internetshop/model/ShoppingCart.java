@@ -6,10 +6,10 @@ import java.util.List;
 public class ShoppingCart {
     private Long id;
     private List<Product> products = new ArrayList<>();
-    private User user;
+    private Long userId;
 
-    public ShoppingCart(User user) {
-        this.user = user;
+    public ShoppingCart(Long user) {
+        this.userId = user;
     }
 
     public List<Product> getProducts() {
@@ -28,11 +28,11 @@ public class ShoppingCart {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUser() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Long user) {
+        this.userId = user;
     }
 }
