@@ -20,7 +20,7 @@ public class OrderServiceImpl implements OrderService {
     private ShoppingCartService shoppingCartService;
 
     @Override
-    public Order completeOrder(List<Product> products, User user) {
+    public Order completeOrder(List<Product> products, Long user) {
         List<Product> newProducts = new ArrayList<>(products);
         return orderDao.create(new Order(newProducts, user));
     }

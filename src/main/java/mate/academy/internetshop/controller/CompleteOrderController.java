@@ -27,7 +27,7 @@ public class CompleteOrderController extends HttpServlet {
         Long userId = (Long) session.getAttribute(USER_ID);
         ShoppingCart shoppingCart = shoppingCartService.getByUserId(userId);
         Order order = orderService.completeOrder(shoppingCart.getProducts(),
-                shoppingCart.getUser());
+                shoppingCart.getUserId());
         shoppingCartService.clear(shoppingCart);
 
         response.sendRedirect(request.getContextPath() + "/order?id=" + order.getOrderId());

@@ -37,7 +37,8 @@ public class ShoppingCartJdbcImpl implements ShoppingCartDao {
 
     @Override
     public Optional<ShoppingCart> get(Long element) {
-        String sql = String.format("SELECT * FROM shopping_cart WHERE shopping_cart_id=%d;", element);
+        String sql = String.format("SELECT * FROM shopping_cart WHERE shopping_cart_id=%d;",
+                element);
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
@@ -120,9 +121,9 @@ public class ShoppingCartJdbcImpl implements ShoppingCartDao {
     }
 
     private boolean deleteProductFromShoppingCart(ShoppingCart shoppingcart) {
-        String sql = "DELETE FROM shopping_cart_products as scp " +
-                "JOIN shopping_cart as sc on scp.prudct_id = sc.product_id " +
-                "WHERE sc.shopping_cart_id=" + shoppingcart.getId()+ ";";
+        String sql = "DELETE FROM shopping_cart_products as scp "
+                + "JOIN shopping_cart as sc on scp.prudct_id = sc.product_id "
+                + "WHERE sc.shopping_cart_id=" + shoppingcart.getId() + ";";
         try (Connection connection = ConnectionUtil.getConnection()) {
             Statement statement = connection.createStatement();
             return statement.executeUpdate(sql) > 0;

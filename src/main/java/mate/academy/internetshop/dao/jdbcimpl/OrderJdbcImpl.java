@@ -1,40 +1,162 @@
 package mate.academy.internetshop.dao.jdbcimpl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import mate.academy.internetshop.dao.OrderDao;
+import mate.academy.internetshop.exception.DataProcessingException;
 import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.Order;
+import mate.academy.internetshop.model.Product;
+import mate.academy.internetshop.util.ConnectionUtil;
 
 @Dao
 public class OrderJdbcImpl implements OrderDao {
     @Override
     public List<Order> getByUser(Long id) {
-        return null;
+        List<Order> orders = new ArrayList<>();
+        String sql = String.format("SELECT * FROM orders WHERE user_id=%d;", id);
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                orders.add(getOrderFromResultSet(resultSet));
+            }
+            return orders;
+        } catch (SQLException e) {
+            throw new DataProcessingException("can`t receive orders from DB by user id ", e);
+        }
     }
 
     @Override
     public Order create(Order element) {
-        return null;
+        String sql = "INSERT INTO orders(user_id) VALUES (?);";
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(sql,
+                    Statement.RETURN_GENERATED_KEYS);
+            statement.setLong(1, element.getUserId());
+            statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+            if (resultSet.next()) {
+                element.setOrderId(resultSet.getLong(1));
+            }
+            return element;
+        } catch (SQLException e) {
+            throw new DataProcessingException("Can`t add product to DB", e);
+        }
     }
 
     @Override
     public Optional<Order> get(Long element) {
-        return Optional.empty();
+        String sql = String.format("SELECT * FROM orders WHERE order_id=%d;", element);
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            Order order = null;
+            while (resultSet.next()) {
+                order = getOrderFromResultSet(resultSet);
+            }
+            return Optional.ofNullable(order);
+        } catch (SQLException e) {
+            throw new DataProcessingException("can`t receive orders from DB by user id ", e);
+        }
     }
 
     @Override
     public List<Order> getAll() {
-        return null;
+        List<Order> orders = new ArrayList<>();
+        String sql = "SELECT * FROM orders;";
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                orders.add(getOrderFromResultSet(resultSet));
+            }
+            return orders;
+        } catch (SQLException e) {
+            throw new DataProcessingException("can`t receive orders from DB by user id ", e);
+        }
     }
 
     @Override
     public Order update(Order element) {
-        return null;
+        deleteProductFromOrder(element);
+        addProductToOrder(element);
+        return element;
+    }
+
+    private boolean deleteProductFromOrder(Order order) {
+        String sql = "DELETE FROM orders_product as op "
+                + "JOIN orders as o on op.prudct_id = o.product_id "
+                + "WHERE o.sorder_id=" + order.getOrderId() + ";";
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            Statement statement = connection.createStatement();
+            return statement.executeUpdate(sql) > 0;
+        } catch (SQLException e) {
+            throw new DataProcessingException("Can`t delete product from orders in DB", e);
+        }
+    }
+
+    private void addProductToOrder(Order order) {
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            for (Product product : order.getProducts()) {
+                String sql = "INSERT INTO orders_product(order_id, product_id) VALUES (?,?);";
+                PreparedStatement statement = connection.prepareStatement(sql,
+                        Statement.RETURN_GENERATED_KEYS);
+                statement.setLong(1, order.getOrderId());
+                statement.setLong(2, product.getId());
+                statement.executeUpdate();
+                ResultSet resultSet = statement.getGeneratedKeys();
+
+            }
+        } catch (SQLException e) {
+            throw new DataProcessingException("Can`t add product to orders in DB", e);
+        }
     }
 
     @Override
     public boolean delete(Long element) {
-        return false;
+        String sql = "DELETE FROM orders WHERE order_id=" + element + ";";
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            Statement statement = connection.createStatement();
+            return statement.executeUpdate(sql) > 0;
+        } catch (SQLException e) {
+            throw new DataProcessingException("Can`t delete shopping cart from DB", e);
+        }
+    }
+
+    private Order getOrderFromResultSet(ResultSet resultSet) throws SQLException {
+        Long orderId = resultSet.getLong("order_id");
+        Long userId = resultSet.getLong("user_id");
+        List<Product> products = getProductFromOrder(orderId);
+        return new Order(products, userId);
+    }
+
+    private List<Product> getProductFromOrder(Long id) {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT p.product_id, p.name, p.price FROM orders_product as op "
+                + "RIGHT JOIN product as p on op.product_id = p.product_id "
+                + "WHERE op.order_id = " + id + ";";
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            Product product;
+            while (resultSet.next()) {
+                Long productId = resultSet.getLong("product_id");
+                String name = resultSet.getString("name");
+                Double price = resultSet.getDouble("price");
+                product = new Product(name, price);
+                product.setId(productId);
+                products.add(product);
+            }
+            return products;
+        } catch (SQLException e) {
+            throw new DataProcessingException("Can`t get product from orders", e);
+        }
     }
 }

@@ -46,6 +46,10 @@ public class UserJdbcImpl implements UserDao {
             if (resultSet.next()) {
                 element.setId(resultSet.getLong(1));
             }
+            String query = "INSERT INTO user_roles(user_id, role_id) VALUES("
+                    + element.getId() + ", 2);";
+            PreparedStatement statement1 = connection.prepareStatement(query);
+            statement1.executeUpdate();
             return element;
         } catch (SQLException e) {
             throw new DataProcessingException("Can`t add user to DB", e);
