@@ -9,7 +9,6 @@ import mate.academy.internetshop.dao.Storage;
 import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.Order;
 
-@Dao
 public class OrderDaoImpl implements OrderDao {
 
     @Override
@@ -30,7 +29,7 @@ public class OrderDaoImpl implements OrderDao {
     public List<Order> getByUser(Long id) {
         return Storage.orders
                 .stream()
-                .filter(o -> o.getUser().getId().equals(id))
+                .filter(o -> o.getUserId().equals(id))
                 .collect(Collectors.toList());
     }
 

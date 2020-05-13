@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.Optional;
 import mate.academy.internetshop.dao.UserDao;
 import mate.academy.internetshop.exception.DataProcessingException;
+import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.util.ConnectionUtil;
 
+@Dao
 public class UserJdbcImpl implements UserDao {
     @Override
     public Optional<User> findByLogin(String login) {
