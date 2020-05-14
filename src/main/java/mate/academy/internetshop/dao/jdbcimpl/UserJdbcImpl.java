@@ -52,7 +52,10 @@ public class UserJdbcImpl implements UserDao {
             if (resultSet.next()) {
                 element.setId(resultSet.getLong(1));
             }
-            addRolesForUser(element);
+            String query = "INSERT INTO user_roles(user_id, role_id) VALUES("
+                    + element.getId() + ", 2);";
+            PreparedStatement statement1 = connection.prepareStatement(query);
+            statement1.executeUpdate();
             return element;
         } catch (SQLException e) {
             throw new DataProcessingException("Can`t add user to DB", e);
@@ -104,8 +107,6 @@ public class UserJdbcImpl implements UserDao {
             statement.setString(1, element.getUserName());
             statement.setString(2, element.getLogin());
             statement.setString(3, element.getPassword());
-            deleteRolesOfUser(element);
-            addRolesForUser(element);
             return get(element.getId()).get();
         } catch (SQLException e) {
             throw new DataProcessingException("Can`t update user in DB", e);
@@ -146,32 +147,6 @@ public class UserJdbcImpl implements UserDao {
                 roles.add(Role.of(resultSet.getString("role_name")));
             }
             return roles;
-        }
-    }
-
-    private void addRolesForUser(User user) {
-        try (Connection connection = ConnectionUtil.getConnection()) {
-            for (Role role: user.getRoles()) {
-                String query = "INSERT INTO users_roles (user_id, role_id) "
-                        + "values(?,?);";
-                PreparedStatement statement = connection.prepareStatement(query);
-                statement.setLong(1, user.getId());
-                statement.setLong(2, role.getId());
-                statement.executeUpdate();
-            }
-        } catch (SQLException e) {
-            throw new DataProcessingException("Can't add role for user", e);
-        }
-    }
-
-    private void deleteRolesOfUser(User user) {
-        try (Connection connection = ConnectionUtil.getConnection()) {
-            String query = "DELETE FROM user_roles WHERE user_id=?;";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setLong(1, user.getId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new DataProcessingException("Can't delete roles of user", e);
         }
     }
 }
