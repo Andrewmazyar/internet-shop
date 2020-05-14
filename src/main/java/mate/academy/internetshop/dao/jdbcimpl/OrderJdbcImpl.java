@@ -20,7 +20,7 @@ public class OrderJdbcImpl implements OrderDao {
     @Override
     public List<Order> getByUser(Long id) {
         List<Order> orders = new ArrayList<>();
-        String sql ="SELECT * FROM orders WHERE user_id=?;";
+        String sql = "SELECT * FROM orders WHERE user_id=?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);

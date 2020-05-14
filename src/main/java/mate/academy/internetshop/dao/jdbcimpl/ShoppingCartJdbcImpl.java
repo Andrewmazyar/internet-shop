@@ -37,7 +37,7 @@ public class ShoppingCartJdbcImpl implements ShoppingCartDao {
 
     @Override
     public Optional<ShoppingCart> get(Long element) {
-        String sql = "SELECT * FROM internet-shop.shopping_cart WHERE shopping_cart_id = ?;";
+        String sql = "SELECT * FROM shopping_cart WHERE shopping_cart_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, element);
@@ -77,7 +77,7 @@ public class ShoppingCartJdbcImpl implements ShoppingCartDao {
 
     @Override
     public boolean delete(Long element) {
-        String sql = "DELETE FROM internet-shop.shopping_cart WHERE shopping_cart_id=?;";
+        String sql = "DELETE FROM shopping_cart WHERE shopping_cart_id=?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, element);

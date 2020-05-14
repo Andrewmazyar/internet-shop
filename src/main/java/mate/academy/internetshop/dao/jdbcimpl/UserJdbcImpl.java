@@ -26,9 +26,8 @@ public class UserJdbcImpl implements UserDao {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, login);
             ResultSet resultSet = statement.executeQuery();
-            User user = null;
             if (resultSet.next()) {
-                user = getUserFromResultSet(resultSet);
+                User user = getUserFromResultSet(resultSet);
                 user.setRoles(getRolesForUser(user.getId()));
                 return Optional.of(user);
             }
