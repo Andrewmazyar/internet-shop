@@ -10,7 +10,6 @@
     <tr>
         <th>Id</th>
         <th>User id</th>
-        <th>User name</th>
 
     </tr>
     <c:forEach var="order" items="${orders}">
@@ -21,9 +20,7 @@
         <td>
             <c:out value="${order.user.id}"/>
         </td>
-        <td>
-            <c:out value="${order.user.userName}"/>
-        </td>
+
     </tr>
     </c:forEach>
     <li><a href="/">main page</a></li>

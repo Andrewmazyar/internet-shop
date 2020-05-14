@@ -10,7 +10,6 @@
     <tr>
         <th>Id</th>
         <th>User id</th>
-        <th>User name</th>
         <th>Details</th>
         <th>Delete</th>
     </tr>
@@ -20,10 +19,7 @@
             <c:out value="${order.orderId}"/>
         </td>
         <td>
-            <c:out value="${order.user.id}"/>
-        </td>
-        <td>
-            <c:out value="${order.user.userName}"/>
+            <c:out value="${order.userId}"/>
         </td>
         <td>
             <a href="${pageContext.request.contextPath}/order/details?id=${order.orderId}">show</a>
