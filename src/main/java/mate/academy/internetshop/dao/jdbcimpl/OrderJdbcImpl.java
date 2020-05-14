@@ -20,9 +20,10 @@ public class OrderJdbcImpl implements OrderDao {
     @Override
     public List<Order> getByUser(Long id) {
         List<Order> orders = new ArrayList<>();
-        String sql = String.format("SELECT * FROM orders WHERE user_id=%d;", id);
+        String sql ="SELECT * FROM orders WHERE user_id=?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 orders.add(getOrderFromResultSet(resultSet));
@@ -54,9 +55,10 @@ public class OrderJdbcImpl implements OrderDao {
 
     @Override
     public Optional<Order> get(Long element) {
-        String sql = String.format("SELECT * FROM orders WHERE order_id=%d;", element);
+        String sql = "SELECT * FROM orders WHERE order_id=?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setLong(1, element);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return Optional.of(getOrderFromResultSet(resultSet));
@@ -93,9 +95,10 @@ public class OrderJdbcImpl implements OrderDao {
     private boolean deleteProductFromOrder(Order order) {
         String sql = "DELETE FROM orders_product as op "
                 + "JOIN orders as o on op.prudct_id = o.product_id "
-                + "WHERE o.sorder_id=" + order.getOrderId() + ";";
+                + "WHERE o.sorder_id=?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
-            Statement statement = connection.createStatement();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setLong(1, order.getOrderId());
             return statement.executeUpdate(sql) > 0;
         } catch (SQLException e) {
             throw new DataProcessingException("Can`t delete product from orders in DB", e);
@@ -121,9 +124,10 @@ public class OrderJdbcImpl implements OrderDao {
 
     @Override
     public boolean delete(Long element) {
-        String sql = "DELETE FROM orders WHERE order_id=" + element + ";";
+        String sql = "DELETE FROM orders WHERE order_id=?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
-            Statement statement = connection.createStatement();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setLong(1, element);
             return statement.executeUpdate(sql) > 0;
         } catch (SQLException e) {
             throw new DataProcessingException("Can`t delete shopping cart from DB", e);

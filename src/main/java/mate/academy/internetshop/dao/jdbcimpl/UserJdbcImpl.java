@@ -64,9 +64,10 @@ public class UserJdbcImpl implements UserDao {
 
     @Override
     public Optional<User> get(Long element) {
-        String sql = String.format("SELECT * FROM users WHERE user_id=%d;", element);
+        String sql = "SELECT * FROM users WHERE user_id=?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setLong(1, element);
             ResultSet resultSet = statement.executeQuery();
             User user = null;
             while (resultSet.next()) {
@@ -100,13 +101,13 @@ public class UserJdbcImpl implements UserDao {
 
     @Override
     public User update(User element) {
-        String sql = "UPDATE users SET name=?, login=?, password=? WHERE user_id="
-                + element.getId() + ";";
+        String sql = "UPDATE users SET name=?, login=?, password=? WHERE user_id=?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, element.getUserName());
             statement.setString(2, element.getLogin());
             statement.setString(3, element.getPassword());
+            statement.setLong(4, element.getId());
             return get(element.getId()).get();
         } catch (SQLException e) {
             throw new DataProcessingException("Can`t update user in DB", e);
@@ -115,9 +116,10 @@ public class UserJdbcImpl implements UserDao {
 
     @Override
     public boolean delete(Long element) {
-        String sql = "DELETE FROM users WHERE user_id=" + element + ";";
+        String sql = "DELETE FROM users WHERE user_id=?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
-            Statement statement = connection.createStatement();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setLong(1, element);
             return statement.executeUpdate(sql) > 0;
         } catch (SQLException e) {
             throw new DataProcessingException("Can`t delete user from DB", e);
