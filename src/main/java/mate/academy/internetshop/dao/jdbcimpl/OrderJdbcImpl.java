@@ -134,7 +134,9 @@ public class OrderJdbcImpl implements OrderDao {
         Long orderId = resultSet.getLong("order_id");
         Long userId = resultSet.getLong("user_id");
         List<Product> products = getProductFromOrder(orderId);
-        return new Order(products, userId);
+        Order order = new Order(products, userId);
+        order.setOrderId(orderId);
+        return order;
     }
 
     private List<Product> getProductFromOrder(Long id) {
