@@ -104,3 +104,8 @@ CREATE TABLE `internet-shop`.`shopping_carts_products` (
             ON UPDATE CASCADE
 );
 
+ALTER TABLE `internet-shop`.`users`
+    ADD COLUMN `salt` VARBINARY(400) NOT NULL AFTER `password`,
+    ADD UNIQUE INDEX `salt_UNIQUE` (`salt` ASC);
+;
+

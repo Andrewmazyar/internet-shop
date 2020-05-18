@@ -39,13 +39,14 @@ public class UserJdbcImpl implements UserDao {
 
     @Override
     public User create(User element) {
-        String sql = "INSERT INTO users(name, login, password) VALUES (?, ?, ?);";
+        String sql = "INSERT INTO users(name, login, password, salt) VALUES (?, ?, ?, ?);";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql,
                     Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, element.getUserName());
             statement.setString(2, element.getLogin());
             statement.setString(3, element.getPassword());
+            statement.setBytes(4, element.getSalt());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -100,13 +101,14 @@ public class UserJdbcImpl implements UserDao {
 
     @Override
     public User update(User element) {
-        String sql = "UPDATE users SET name=?, login=?, password=? WHERE user_id=?;";
+        String sql = "UPDATE users SET name=?, login=?, password=?, salt=? WHERE user_id=?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, element.getUserName());
             statement.setString(2, element.getLogin());
             statement.setString(3, element.getPassword());
-            statement.setLong(4, element.getId());
+            statement.setBytes(4, element.getSalt());
+            statement.setLong(5, element.getId());
             return get(element.getId()).get();
         } catch (SQLException e) {
             throw new DataProcessingException("Can`t update user in DB", e);
@@ -130,8 +132,10 @@ public class UserJdbcImpl implements UserDao {
         String name = resultSet.getString("name");
         String login1 = resultSet.getString("login");
         String password = resultSet.getString("password");
+        byte[] salt = resultSet.getBytes("salt");
         User user = new User(name, login1, password);
         user.setId(userId);
+        user.setSalt(salt);
         return user;
     }
 
