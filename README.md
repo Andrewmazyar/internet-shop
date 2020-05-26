@@ -6,7 +6,7 @@
 - [3. For developer](#3-for-developer) <br>
 - [4. Author](#4-author)  
 
- ## 1. Project Purpose
+ ### 1. Project Purpose
 this project is a simple version internet-shop where realize:
 <ul>
     <li>Registration and log in forms</li>
@@ -17,7 +17,7 @@ This project has authentication and authorization filters, DAO and Service layer
 
 DAO layer has two implementations: inner storage based on List and outer storage based on MySQL DB.
 
- ## 2. Project structure
+ ### 2. Project structure
 <ul>
     <li>Java 11</li>
     <li>Maven</li>
@@ -28,7 +28,7 @@ DAO layer has two implementations: inner storage based on List and outer storage
     <li>log4j 1.2.17</li>
 </ul>
 
- ## 3. For developer
+ ### 3. For developer
     To run this project you need to install:
         -Java 11
         -Tomcat
@@ -46,5 +46,5 @@ To work with MySQL you need to:
     -Use file src/main/resources/init_db.sql to create schema and all the tables required by this app in MySQL DB
     -Change username and password to match with MySQL in src/main/java/mate/academy/internetshop/util/ConnectionUtil.java class on 20 ,21 line
  
- ## 4. Author
+ ### 4. Author
 <li><a href="https://github.com/Andrewmazyar">Andriy Maziar</a></li>

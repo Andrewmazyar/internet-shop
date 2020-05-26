@@ -52,10 +52,7 @@ public class UserJdbcImpl implements UserDao {
             if (resultSet.next()) {
                 user.setId(resultSet.getLong(1));
             }
-            String query = "INSERT INTO user_roles(user_id, role_id) VALUES(?, 2);";
-            PreparedStatement statement1 = connection.prepareStatement(query);
-            statement1.setLong(1, user.getId());
-            statement1.executeUpdate();
+            insertUsersRoles(user, connection);
             return user;
         } catch (SQLException e) {
             throw new DataProcessingException("Can`t add user to DB", e);
@@ -152,6 +149,22 @@ public class UserJdbcImpl implements UserDao {
                 roles.add(Role.of(resultSet.getString("role_name")));
             }
             return roles;
+        }
+    }
+
+    private void insertUsersRoles(User user, Connection connection) throws SQLException {
+        String selectRoleIdQuery = "SELECT role_id FROM roles WHERE role_name = ?";
+        String insertUsersRolesQuery = "INSERT INTO users_roles (user_id, role_id) VALUES (?, ?);";
+        PreparedStatement selectStatement = connection.prepareStatement(selectRoleIdQuery);
+        for (Role role : user.getRoles()) {
+            selectStatement.setString(1, role.getRoleName().name());
+            ResultSet resultSet = selectStatement.executeQuery();
+            resultSet.next();
+            PreparedStatement insertStatement =
+                    connection.prepareStatement(insertUsersRolesQuery);
+            insertStatement.setLong(1, user.getId());
+            insertStatement.setLong(2, resultSet.getLong("role_id"));
+            insertStatement.executeUpdate();
         }
     }
 }
