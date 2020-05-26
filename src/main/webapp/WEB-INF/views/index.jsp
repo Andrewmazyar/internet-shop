@@ -6,10 +6,7 @@
 <body>
 <h1>Bear Beer Shop</h1>
 <a href="${pageContext.request.contextPath}/logout">Logout</a>
-<h4>Inject Admin</h4>
-<ul>
-    <li><a href="${pageContext.request.contextPath}/injectData">inject admin</a></li>
-</ul>
+
 <h4>Order</h4>
 <ul>
     <li><a href="/order/orderAll">all orders</a></li>
