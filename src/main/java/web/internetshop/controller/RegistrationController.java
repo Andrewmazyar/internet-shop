@@ -8,12 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import web.internetshop.lib.Injector;
 import web.internetshop.model.Role;
+import web.internetshop.model.ShoppingCart;
 import web.internetshop.model.User;
+import web.internetshop.service.ShoppingCartService;
 import web.internetshop.service.UserService;
 
 public class RegistrationController extends HttpServlet {
     private static final Injector INJECTOR = Injector.getInstance("web.internetshop");
     private UserService userService = (UserService) INJECTOR.getInstance(UserService.class);
+    private ShoppingCartService shoppingCartService
+            = (ShoppingCartService) INJECTOR.getInstance(ShoppingCartService.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,6 +37,9 @@ public class RegistrationController extends HttpServlet {
             User user = new User(name, login, pwd);
             user.setRoles(Set.of(Role.of("USER")));
             userService.create(user);
+            ShoppingCart shoppingCartForUser
+                    = new ShoppingCart(userService.findByLogin(login).get().getId());
+            shoppingCartService.create(shoppingCartForUser);
             response.sendRedirect(request.getContextPath() + "/");
         } else {
             request.setAttribute("message", "your password and repeat password are different");
